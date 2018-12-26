@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<title>User Login System Files Structure by CodexWorld</title>
+<style>
+html, body {
+    font-family: "Lato",sans-serif;
+    background: #F5F5F5;
+    font-size: 11pt;
+    height: 100%;
+    color: #444;
+    -webkit-font-smoothing: antialiased;
+}
+.main-content {
+	width: auto;
+    padding: 0 0 40px;
+}
+h1 {
+    font-size: 20pt;
+    margin-bottom: 8px;
+}
+p {
+    font-size: 1em;
+    line-height: 1.5em;
+    margin: 5px 0;
+}
+a {
+    color: #3daccc;
+    cursor: pointer;
+    text-decoration: none;
+}
+ol li {
+    margin-bottom: 5px;
+}
+.license-content {
+    width: 980px;
+    margin: auto;
+    position: relative;
+}
+.pro-head {
+    padding: 40px 0;
+}
+.thumb {
+    float: left;
+    margin-right: 10px;
+    border-radius: 6px;
+}
+.container {
+    margin-bottom: 20px;
+	padding: 30px;
+	background: #fff;
+    clear: left;
+}
+.container h2 {
+    font-size: 22pt;
+    color: #2e2e2e;
+    text-align: center;
+    margin: 20px 0;
+}
+ul.summary {
+    list-style: none;
+    padding: 0;
+    line-height: 1.2em;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #515151;
+}
+ul.summary li {
+    padding-left: 40px;
+    margin-bottom: 7px;
+    position: relative;
+}
+ul.summary li:before {
+    content: "■";
+    font-family: Arial;
+    color: #1497cc;
+    font-size: 12pt;
+    position: absolute;
+    left: 10px;
+}
+.license-content ol {
+    padding-left: 20px;
+    counter-reset: item;
+    list-style: none;
+}
+.license-content ol {
+    padding-left: 0;
+    line-height: 1.4em;
+    font-size: 10pt;
+    margin-left: 0;
+}
+.license-content ol p {
+    margin: 0;
+    display: inline;
+    font-size: 10pt;
+}
+.terms > ol ol {
+    padding-left: 20px;
+}
+
+.terms {
+    padding-bottom: 0;
+}
+.terms h2 {
+    margin-bottom: 40px;
+}
+.terms>ol {
+    padding: 0;
+    list-style: none;
+}
+
+.terms>ol>li:nth-child(2n+1) {
+    background: #f9f9f9;
+}
+.terms>ol>li {
+    padding: 30px;
+    border-top: 1px solid #dedede;
+    margin: 0 -30px;
+}
+.terms ol li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+}
+.terms ol li ul li:before {
+	content: "";
+	counter-increment: none;
+	list-style: circle;
+}
+</style>
+</head>
+<body>
+<div class="main-content">	
+<div class="license-content">	
+	<div class="pro-head">
+		<h1><a href="http://www.codexworld.com/scripts/php-user-login-system/">PHP User Login System</a></h1>
+		<p class="summary">UserLoginSystem is a readymade user login system that allows integrating user registration and login system in PHP web application within minutes.</p>
+	</div>
+	<div class="container">
+		<h2>Files Structure</h2>
+<pre style="background:#f9f9f9;color:#080808">php_login_system<span style="color:#794938">/</span>
+├── user.php
+├── userAccount.php
+├── index.php
+├── registration.php
+├── profile.php
+├── settings.php
+├── forgotPassword.php
+├── resetPassword.php
+├── email_functions.php
+├── css<span style="color:#794938">/</span>
+│   ├── style.css
+├── images<span style="color:#794938">/</span>
+└── uploads<span style="color:#794938">/</span>
+    └── profile_picture<span style="color:#794938">/</span>
+</pre>
+</div>
+	<div class="container terms">		
+		<h2>Files Details & Functionality</h2>
+		<ol>
+			<li><p><strong>user.php</strong></p>
+				<p>User Class handles all the database related works, it contains 4 methods, __construct(), getRows(), insert() and update(). __construct() function is used to connect the database, getRows() function is used to fetch the user data from the database, insert() function inserts the user details to the database, and update() function updates the user details to the database. In this file, you need to change $dbHost, $dbUsername, $dbPassword, $dbName variables value with your MySQL database credentials.</p>
+			</li>
+			<li><p><strong>userAccount.php</strong></p>
+				<p>This file controls the registration, login, logout, forgot & reset password, email verification, profile update and password update request. These requests are comes from index.php, registration.php, profile.php, settings.php, forgotPassword.php, and resetPassword.php. The User Class is used to get, insert, and update user details to the users table. Also, PHP Sessions are used to hold the login status of the user.</p>
+			</li>
+			<li><p><strong>index.php</strong></p>
+				<p>Initially index.php file is loaded with login form and registration page link. After login, the user ID is available in session and the respective user details are shown using the User class. Also, a logout link will appear if the user already logged in.</p>
+			</li>
+			<li><p><strong>registration.php</strong></p>
+				<p>This file contains registration form HTML and the form is submitted to the userAccount.php file with a signup request.</p>
+			</li>
+			<li><p><strong>profile.php</strong></p>
+				<p>This file is used to update the user profile information. On form submit, the update request is submitted to the userAccount.php file.</p>
+			</li>
+			<li><p><strong>settings.php</strong></p>
+				<p>This file is used to update the login password. On form submit, the password update request is submitted to the userAccount.php file.</p>
+			</li>
+            <li><p><strong>forgotPassword.php</strong></p>
+				<p>This file is loaded when user forgot their account password. On form submit, the reset password request is submitted to the userAccount.php file.</p>
+			</li>
+            <li><p><strong>resetPassword.php</strong></p>
+				<p>This file is used to reset the new password. On form submit, the new password update request is submitted to the userAccount.php file.</p>
+			</li>
+            <li><p><strong>email_functions.php</strong></p>
+				<p>This file contains the email helper functions. These functions are used to send email for account activation and reset the password.</p>
+			</li>
+			<li><p><strong>css/</p></strong>
+				<p>The stylesheet files are placed in this directory.</p>
+			</li>
+            <li><p><strong>assets/images/</p></strong>
+                <p>All the image files are placed in this directory.</p>
+            </li>	
+			<li><p><strong>uploads/<p></strong>
+				<ol>
+					<li><p><strong>uploads/profile_picture/</p></strong>
+						<p>User's profile picture are stored in this directory.</p>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</div>
+</div>
+</div>
+</body>
+</html>
