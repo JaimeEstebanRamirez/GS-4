@@ -7,10 +7,10 @@
  * @license   http://www.codexworld.com/license
  */
 class User{
-    private $dbHost     = "localhost";
-    private $dbUsername = "root";
-    private $dbPassword = "";
-    private $dbName     = "php_login_system";
+    private $dbHost     = "webappgroupswitzerland-mysqldbserver.mysql.database.azure.com";
+    private $dbUsername = "mysqldbuser@webappgroupswitzerland-mysqldbserver";
+    private $dbPassword = "@Italy2018";
+    private $dbName     = "GSDB_4";
     private $userTbl    = "users";
     
     public function __construct(){
