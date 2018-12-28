@@ -22,7 +22,7 @@ if(! function_exists('forgotPassEmail')){
         $mailContent = '<p>Dear <strong>'.$userData['first_name'].'</strong>,</p>
         <p>Recently a request was submitted to reset a password for your account. If this was a mistake, just ignore this email and nothing will happen.</p>
         <p>To reset your password, visit the following link: <a href="'.$resetPassLink.'">'.$resetPassLink.'</a></p>
-        <p>Let us know at contact@example.com in case of any query or feedback.</p>
+        <p>Let us know at groupswitzerland01@gmail.com in case of any query or feedback.</p>
         <p>Regards,<br/><strong>Team '.SENDER_NAME.'</strong></p>';
         
 		if(SMTP == TRUE){

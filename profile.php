@@ -84,7 +84,7 @@ $userName = $userData['first_name'].' '.$userData['last_name'];
 </div>
 <!-- render footer view -->
 <div class="cw_copyright">
-	<p>&copy; <?php echo date("Y"); ?> GroupSwitezrland. All rights reserved</p>
+	<p>&copy; <?php echo date("Y"); ?> GroupSwitzerland. All rights reserved</p>
 </div>
 </body>
 </html>
