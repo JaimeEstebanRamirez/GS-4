@@ -25,8 +25,8 @@ if(!empty($sessData['status']['msg'])){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" 	type="text/css" media="all">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,600italic,700' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 	$(document).ready(function(){
@@ -37,32 +37,31 @@ if(!empty($sessData['status']['msg'])){
 	</script>
 </head>
 <body>
-<div class="main">
+<h1>PHP USER REGISTRATION AND LOGIN SYSTEM</h1>
+<div class="container">
+	<h2>Create a New Account</h2>
 	<!-- render main page content view -->
-	<div class="cwld_top_forms">
-		<div class="cw-info_codex hvr-buzz-out">
-			<h3>Create a New Account</h3>
-			<div class="cw-info_codex_grid">
-				<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-				<form action="userAccount.php" method="post">
-					<input type="text" name="first_name" placeholder="First Name" required=" ">
-					<input type="text" name="last_name" placeholder="Last Name" required=" ">
-					<input type="email" name="email" placeholder="Email" required=" ">
-					<input type="password" name="password" placeholder="Password" required=" ">
-					<input type="password" name="confirm_password" placeholder="Confirm Password" required=" ">
-					<input type="text" name="phone" class="single-input" placeholder="Phone">
-					<input type="text" name="address" placeholder="Address">
-					<input type="submit" name="signupSubmit" value="Sign Up">
-				</form>
-				<h5>Already a member? <a href="index.php">Sign In</a></h5>
+	<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
+	<div class="regisFrm">
+		<form action="userAccount.php" method="post">
+			<input type="email" name="email" placeholder="Email" required>
+			<input type="text" name="first_name" placeholder="Name" required>
+			<input type="text" name="last_name" placeholder="Surname" required>
+			<input type="text" name="dob" placeholder="Date of Birth (e.g. 19/09/1994)">
+			<input type="text" name="affiliation" placeholder="Affiliation">
+			<input type="text" name="username" placeholder="Username" required>
+			<input type="password" name="password" placeholder="Password" required>
+			<input type="password" name="confirm_password" placeholder="Confirm Password" required>
+			<div class="send-button">
+				<input type="submit" name="signupSubmit" value="CREATE ACCOUNT">
 			</div>
-		</div>
-		<div class="clear"> </div>
+		</form>
+		<p class="mrt-10">Already a member? <a href="index.php">Sign In</a></p>
 	</div>
-	<!-- render footer view -->
-	<div class="cw_copyright">
-		<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
-	</div>
+</div>
+<!-- render footer view -->
+<div class="cw_copyright">
+	<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
 </div>
 </body>
 </html>

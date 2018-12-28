@@ -25,8 +25,8 @@ if(!empty($sessData['status']['msg'])){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" 	type="text/css" media="all">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,600italic,700' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 	$(document).ready(function(){
@@ -37,23 +37,24 @@ if(!empty($sessData['status']['msg'])){
 	</script>
 </head>
 <body>
-<div class="main">
-	<div class="cwld_top_forms">
-		<div class="cw-info_codex cw-info_codex_sub hvr-buzz-out">
-			<h3>Reset Account Password</h3>
-			<div class="cw-info_codex_grid second">
-				<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-				<form action="userAccount.php" method="post">
-					<input type="password" name="password" placeholder="Password" required=" ">
-					<input type="password" name="confirm_password" placeholder="Confirm password" required=" ">
-					<input type="hidden" name="fp_code" value="<?php echo $_REQUEST['fp_code']; ?>"/>
-					<input type="submit" name="resetSubmit" value="Update Pasword">
-				</form>
-				<h5>Don't want to reset? <a href="index.php">Sign In</a></h5>
+<h1>PHP USER REGISTRATION AND LOGIN SYSTEM</h1>
+<div class="container">
+	<h2>Reset Account Password</h2>
+	<div class="regisFrm">
+		<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
+		<form action="userAccount.php" method="post">
+			<input type="password" name="password" placeholder="Password" required=" ">
+			<input type="password" name="confirm_password" placeholder="Confirm password" required=" ">
+			<div class="send-button">
+				<input type="hidden" name="fp_code" value="<?php echo $_REQUEST['fp_code']; ?>"/>
+				<input type="submit" name="resetSubmit" value="Update Pasword">
 			</div>
-		</div>
-		<div class="clear"> </div>
+		</form>
+		<p class="mrt-10">Don't want to reset? <a href="index.php">Sign In</a></p>
 	</div>
+</div>
+<div class="cw_copyright">
+	<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
 </div>
 </body>
 </html>

@@ -1,14 +1,25 @@
 <?php
+// email helper file
+include_once 'email_functions.php';
+
+// config file
+include_once 'config.php';
+
 //start session
 session_start();
 
 //load and initialize user class
-include 'user.php';
+include_once 'user.php';
 $user = new User();
+
+function validateDate($date, $format = 'Y-m-d'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
 
 if(isset($_POST['signupSubmit'])){
 	//check whether user details are empty
-    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
+    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['confirm_password'])){
 		//password and confirm password comparison
         if($_POST['password'] !== $_POST['confirm_password']){
             $sessData['status']['type'] = 'error';
@@ -18,10 +29,32 @@ if(isset($_POST['signupSubmit'])){
             $prevCon['where'] = array('email'=>$_POST['email']);
             $prevCon['return_type'] = 'count';
             $prevUser = $user->getRows($prevCon);
+			
+			$prevCon2['where'] = array('username'=>$_POST['username']);
+            $prevCon2['return_type'] = 'count';
+            $prevUser2 = $user->getRows($prevCon2);
             if($prevUser > 0){
                 $sessData['status']['type'] = 'error';
                 $sessData['status']['msg'] = 'Email already exists, please use another email.';
-            }else{
+            }elseif($prevUser2 > 0){
+				$sessData['status']['type'] = 'error';
+                $sessData['status']['msg'] = 'Username already exists, please use another.';
+			}else{
+				$dob_date = '';
+				if(!empty($_POST['dob'])){
+					$dob = $_POST['dob'];
+					$dobArr = explode('/', $dob);
+					if(!empty($dobArr)){
+						$dob_date = $dobArr[0];
+						$dob_month = $dobArr[1];
+						$dob_year = $dobArr[2];
+						$date = $dob_year.'-'.$dob_month.'-'.$dob_date;
+						if(validateDate($date)){
+							$dob_date = $date;
+						}
+					}
+				}
+				
 				//email verification code
 				$uniqidStr = md5(uniqid(mt_rand()));
 				
@@ -30,16 +63,16 @@ if(isset($_POST['signupSubmit'])){
                     'first_name' => $_POST['first_name'],
                     'last_name' => $_POST['last_name'],
                     'email' => $_POST['email'],
+					'username' => $_POST['username'],
                     'password' => md5($_POST['password']),
-                    'phone' => $_POST['phone'],
-					'address' => $_POST['address'],
+                    'dob' => $dob_date,
+					'affiliation' => $_POST['affiliation'],
 					'activation_code' => $uniqidStr
                 );
                 $insert = $user->insert($userData);
 				//set status based on data insert
                 if($insert){
 					//send account verification email
-					include_once 'email_functions.php';
 					@emailVerification($userData);
 					
                     $sessData['status']['type'] = 'success';
@@ -61,10 +94,10 @@ if(isset($_POST['signupSubmit'])){
     header("Location:".$redirectURL);
 }elseif(isset($_POST['loginSubmit'])){
 	//check whether login details are empty
-    if(!empty($_POST['email']) && !empty($_POST['password'])){
+    if(!empty($_POST['username']) && !empty($_POST['password'])){
 		//get user data from user class
         $conditions['where'] = array(
-            'email' => $_POST['email'],
+            'username' => $_POST['username'],
             'password' => md5($_POST['password']),
             'status' => '1'
         );
@@ -86,7 +119,7 @@ if(isset($_POST['signupSubmit'])){
             $sessData['status']['msg'] = 'Welcome '.$userData['first_name'].'!';
         }else{
             $sessData['status']['type'] = 'error';
-            $sessData['status']['msg'] = 'Wrong email or password, please try again.'; 
+            $sessData['status']['msg'] = 'Wrong username or password, please try again.'; 
         }
     }else{
         $sessData['status']['type'] = 'error';
@@ -124,7 +157,6 @@ if(isset($_POST['signupSubmit'])){
 				$userDetails = $user->getRows($con);
 				
 				//send reset password email
-				include_once 'email_functions.php';
                 @forgotPassEmail($userDetails);
 				
 				$sessData['status']['type'] = 'success';
@@ -226,15 +258,24 @@ if(isset($_POST['signupSubmit'])){
 	$sessUserId = $sessData['userID'];
 
 	//check whether user details are empty
-    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone'])){
+    if(!empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['username'])){
 		//check whether user exists in the database
 		$prevCon['where'] = array('email'=>$_POST['email']);
 		$prevCon['where_not'] = array('id'=>$sessUserId);
 		$prevCon['return_type'] = 'count';
 		$prevUser = $user->getRows($prevCon);
+		
+		$prevCon2['where'] = array('username'=>$_POST['username']);
+		$prevCon2['where_not'] = array('id'=>$sessUserId);
+		$prevCon2['return_type'] = 'count';
+		$prevUser2 = $user->getRows($prevCon2);
+		
 		if($prevUser > 0){
 			$sessData['status']['type'] = 'error';
 			$sessData['status']['msg'] = 'Email already exists, please use another email.';
+		}elseif($prevUser2 > 0){
+				$sessData['status']['type'] = 'error';
+                $sessData['status']['msg'] = 'Username already exists, please use another.';
 		}else{
 			//get user information
 			$conditions['where'] = array(
@@ -244,13 +285,29 @@ if(isset($_POST['signupSubmit'])){
 			$userData = $user->getRows($conditions);
 			$prevPicture = $userData['picture'];
 			
+			$dob_date = '';
+			if(!empty($_POST['dob'])){
+				$dob = $_POST['dob'];
+				$dobArr = explode('/', $dob);
+				if(!empty($dobArr)){
+					$dob_date = $dobArr[0];
+					$dob_month = $dobArr[1];
+					$dob_year = $dobArr[2];
+					$date = $dob_year.'-'.$dob_month.'-'.$dob_date;
+					if(validateDate($date)){
+						$dob_date = $date;
+					}
+				}
+			}
+			
 			//prepare user data 
 			$userData = array(
 				'first_name' => $_POST['first_name'],
 				'last_name' => $_POST['last_name'],
 				'email' => $_POST['email'],
-				'phone' => $_POST['phone'],
-				'address' => $_POST['address']
+				'username' => $_POST['username'],
+				'dob' => $dob_date,
+				'affiliation' => $_POST['affiliation']
 			);
 			
 			//profile picture upload
@@ -260,7 +317,8 @@ if(isset($_POST['signupSubmit'])){
 				$fileName = time().'_'.basename($_FILES["picture"]["name"]);
 				$targetFilePath = $targetDir. $fileName;
 				$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-				$allowTypes = array('jpg','png','jpeg','gif','pdf');
+				$fileType = strtolower($fileType);
+				$allowTypes = array('jpg','png','jpeg','gif');
 				if(in_array($fileType, $allowTypes)){
 					if(move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFilePath)){
 						$userData['picture'] = $fileName;

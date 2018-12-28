@@ -24,8 +24,8 @@ if(!empty($sessData['status']['msg'])){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" 	type="text/css" media="all">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,600italic,700' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 	$(document).ready(function(){
@@ -36,29 +36,28 @@ if(!empty($sessData['status']['msg'])){
 	</script>
 </head>
 <body>
-<div class="main">
-	<div class="cwld_top_forms">
-		<div class="cw-info_codex cw-info_codex_sub hvr-buzz-out">
-			<h3>Recover Account Password</h3>
-			<div class="cw-info_codex_grid second">
-				<h5>Enter the email address you used to sign up and we'll send you a link to reset your password.</h5>
-				<?php if(isset($_GET['frmDis']) && $_GET['frmDis'] == 0){ ?>
-				<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-				<h5>Didn’t receive the email? <a href="forgotPassword.php">Request reset link</a></h5>
-				<?php }else{ ?>
-				<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-				<form action="userAccount.php" method="post">
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="submit" name="forgotSubmit" value="Continue">
-				</form>
-				<?php } ?>
+<h1>PHP USER REGISTRATION AND LOGIN SYSTEM</h1>
+<div class="container">
+	<h2>Recover Account Password</h2>
+	<div class="regisFrm">
+		<h5>Enter the email address you used to sign up and we'll send you a link to reset your password.</h5>
+		<?php if(isset($_GET['frmDis']) && $_GET['frmDis'] == 0){ ?>
+		<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
+		<h5>Didn’t receive the email? <a href="forgotPassword.php">Request reset link</a></h5>
+		<?php }else{ ?>
+		<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
+		<form action="userAccount.php" method="post">
+			<input type="email" name="email" placeholder="Email" required="">
+			<div class="send-button">
+				<input type="submit" name="forgotSubmit" value="Continue">
 			</div>
-		</div>
-		<div class="clear"> </div>
+		</form>
+		<p class="mrt-10">Don't want to reset? <a href="index.php">Sign In</a></p>
+		<?php } ?>
 	</div>
-	<div class="cw_copyright">
-		<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
-	</div>
+</div>
+<div class="cw_copyright">
+	<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
 </div>
 </body>
 </html>

@@ -1,25 +1,68 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+function phpmailerInit(){
+	// Include PHPMailer library files
+	require 'PHPMailer/Exception.php';
+	require 'PHPMailer/PHPMailer.php';
+	require 'PHPMailer/SMTP.php';
+	
+	$mail = new PHPMailer;
+	return $mail;
+}
 /*
  * Reset new password email sender function
  */
 if(! function_exists('forgotPassEmail')){
 	function forgotPassEmail($userData){
-        $resetPassLink = 'http://codexworld.com/resetPassword.php?fp_code='.$userData['forgot_pass_identity'];
+        $resetPassLink = BASE_URL.'resetPassword.php?fp_code='.$userData['forgot_pass_identity'];
         $to = $userData['email'];
-		$subject = "Password Update Request | CodexWorld";
+		$subject = "Password Update Request | ".SENDER_NAME;
         $mailContent = '<p>Dear <strong>'.$userData['first_name'].'</strong>,</p>
         <p>Recently a request was submitted to reset a password for your account. If this was a mistake, just ignore this email and nothing will happen.</p>
         <p>To reset your password, visit the following link: <a href="'.$resetPassLink.'">'.$resetPassLink.'</a></p>
         <p>Let us know at contact@example.com in case of any query or feedback.</p>
-        <p>Regards,<br/><strong>Team CodexWorld</strong></p>';
+        <p>Regards,<br/><strong>Team '.SENDER_NAME.'</strong></p>';
         
-        //set content-type header for sending HTML email
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        //additional headers
-        $headers .= 'From: CodexWorld<sender@codex.com>' . "\r\n";
-        //send email
-        mail($to,$subject,$mailContent,$headers);
+		if(SMTP == TRUE){
+			$mail = phpmailerInit();
+			
+			// SMTP configuration
+			$mail->isSMTP();
+			$mail->Host = SMTP_HOST;
+			$mail->SMTPAuth = true;
+			$mail->Username = SMTP_USERNAME;
+			$mail->Password = SMTP_PASSWORD;
+			$mail->SMTPSecure = SMTP_SECURE;
+			$mail->Port = SMTP_PORT;
+			
+			$mail->setFrom(SENDER_EMAIL, SENDER_NAME);
+			
+			// Add a recipient
+			$mail->addAddress($to);
+			
+			// Email subject
+			$mail->Subject = $subject;
+			
+			// Set email format to HTML
+			$mail->isHTML(true);
+			
+			// Email body content
+			$mail->Body = $mailContent;
+			
+			// Send email
+			$mail->send();
+		}else{
+			//set content-type header for sending HTML email
+			$headers = "MIME-Version: 1.0" . "\r\n";
+			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			//additional headers
+			$headers .= 'From: '.SENDER_NAME.'<'.SENDER_EMAIL.'>' . "\r\n";
+			//send email
+			mail($to, $subject, $mailContent, $headers);
+		}
+        
         return true;
     }
 }
@@ -29,9 +72,9 @@ if(! function_exists('forgotPassEmail')){
  */
 if(! function_exists('emailVerification')){
 	function emailVerification($userData){
-        $emailVerifyLink = 'http://codexworld.com/userAccount.php?verifyEmail=1&ac_code='.$userData['activation_code'];
+        $emailVerifyLink = BASE_URL.'userAccount.php?verifyEmail=1&ac_code='.$userData['activation_code'];
         $to = $userData['email'];
-		$subject = "Please Confirm Your Email | CodexWorld";
+		$subject = "Please Confirm Your Email | ".SENDER_NAME;
         $mailContent = '<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-radius:6px;background-color:#ffffff;padding-top:15px;border-collapse:separate">
 			<tbody>
 				<tr>
@@ -56,18 +99,49 @@ if(! function_exists('emailVerification')){
 						</tr>
 					</tbody>
 					</table>
-					We look forward to serving you,<br><strong>CodexWorld Team</strong>
+					We look forward to serving you,<br><strong>'.SENDER_NAME.' Team</strong>
 					</td>
 				</tr>
 			</tbody>
 		</table>';
-        //set content-type header for sending HTML email
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        //additional headers
-        $headers .= 'From: CodexWorld<sender@codex.com>' . "\r\n";
-        //send email
-        mail($to,$subject,$mailContent,$headers);
+		
+		if(SMTP == TRUE){
+			$mail = phpmailerInit();
+			
+			// SMTP configuration
+			$mail->isSMTP();
+			$mail->Host = SMTP_HOST;
+			$mail->SMTPAuth = true;
+			$mail->Username = SMTP_USERNAME;
+			$mail->Password = SMTP_PASSWORD;
+			$mail->SMTPSecure = SMTP_SECURE;
+			$mail->Port = SMTP_PORT;
+			
+			$mail->setFrom(SENDER_EMAIL, SENDER_NAME);
+			
+			// Add a recipient
+			$mail->addAddress($to);
+			
+			// Email subject
+			$mail->Subject = $subject;
+			
+			// Set email format to HTML
+			$mail->isHTML(true);
+			
+			// Email body content
+			$mail->Body = $mailContent;
+			
+			// Send email
+			$mail->send();
+		}else{
+			//set content-type header for sending HTML email
+			$headers = "MIME-Version: 1.0" . "\r\n";
+			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			//additional headers
+			$headers .= 'From: '.SENDER_NAME.'<'.SENDER_EMAIL.'>' . "\r\n";
+			//send email
+			mail($to, $subject, $mailContent, $headers);
+		}
         return true;
     }
 }

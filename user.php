@@ -7,10 +7,10 @@
  * @license   http://www.codexworld.com/license
  */
 class User{
-    private $dbHost     = "webappgroupswitzerland-mysqldbserver.mysql.database.azure.com";
-    private $dbUsername = "mysqldbuser@webappgroupswitzerland-mysqldbserver";
-    private $dbPassword = "@Italy2018";
-    private $dbName     = "gsdb4";
+    private $dbHost     = "localhost";
+    private $dbUsername = "root";
+    private $dbPassword = "root";
+    private $dbName     = "php_login_system";
     private $userTbl    = "users";
     
     public function __construct(){
@@ -106,7 +106,7 @@ class User{
             foreach($data as $key=>$val){
                 $pre = ($i > 0)?', ':'';
                 $columns .= $pre.$key;
-                $values  .= $pre."'".$val."'";
+                $values  .= $pre."'".$this->db->real_escape_string($val)."'";
                 $i++;
             }
             $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")";
@@ -132,7 +132,7 @@ class User{
             }
             foreach($data as $key=>$val){
                 $pre = ($i > 0)?', ':'';
-                $cols_vals .= $pre.$key." = '".$val."'";
+                $cols_vals .= $pre.$key." = '".$this->db->real_escape_string($val)."'";
                 $i++;
             }
             

@@ -24,6 +24,9 @@ if(!empty($sessData['status']['msg'])){
     $statusMsgType = $sessData['status']['type'];
     unset($_SESSION['sessData']['status']);
 }
+
+$userPicture = !empty($userData['picture'])?'uploads/profile_picture/'.$userData['picture']:'images/no-profile-pic.png';
+$userName = $userData['first_name'].' '.$userData['last_name'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,8 +36,8 @@ if(!empty($sessData['status']['msg'])){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" 	type="text/css" media="all">
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,600italic,700' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 	$(document).ready(function(){
@@ -45,97 +48,43 @@ if(!empty($sessData['status']['msg'])){
 	</script>
 </head>
 <body>
-<div class="main">
-	<!-- render main page content view -->
-	<div class="cwld_top_forms cw_main_grid">
-		<div class="cw_main_grid1">
-			<div class="cw_main_grid1_left">
-				<img src="images/star.png" alt=" " class="img-responsive">
-			</div>
-			<div class="cw_main_grid1_right">
-				<div class="menu">
-					<span class="menu-icon"><a href="javascript:void(0);"><i></i><i></i><i></i></a></span>	
-					<ul class="nav1">
-						<li><a href="profile.php">Profile</a></li>
-						<li><a href="settings.php">Settings</a></li>
-						<li><a href="userAccount.php?logoutSubmit=1">Logout</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="clear"> </div>
-			<div class="cw_main_grid1_sub">
-            	<a href="index.php">
-				<?php
-					$userPicture = !empty($userData['picture'])?'uploads/profile_picture/'.$userData['picture']:'images/no-profile-pic.png';
-					$userName = $userData['first_name'].' '.$userData['last_name'];
-				?>
+<h1>PHP USER REGISTRATION AND LOGIN SYSTEM</h1>
+<div class="container">
+	<h4>Update Profile Information</h4>
+	<div class="menu">
+		<span class="menu-icon"><a href="javascript:void(0);"><i></i><i></i><i></i></a></span>	
+		<ul class="nav1">
+			<li><a href="profile.php">Profile</a></li>
+			<li><a href="settings.php">Settings</a></li>
+			<li><a href="userAccount.php?logoutSubmit=1">Logout</a></li>
+		</ul>
+	</div>
+	<div class="regisFrm">
+		<div class="content-wrap">
+			<div class="left">
 				<img src="<?php echo $userPicture; ?>" alt="<?php echo $userName; ?>" class="img-responsive">
-				<h2><?php echo $userName; ?></h2>
-                </a>
 			</div>
-		</div>
-		
-		<div class="cw_main_grid2">
-			<div class="sap_tabs">
-				<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-					<div class="resp-tabs-container">
-						<h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-3"><span class="resp-arrow"></span> </h2>
-						<div class="tab-4 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-3" style="display:block">
-							<div class="codex_tab_grid">
-								<h4>Update Profile Information</h4>
-								<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-								<form action="userAccount.php" method="post" enctype="multipart/form-data">
-								<ul class="codex_tab_grid_list">
-									<li>
-										Profile Picture
-										<span><input type="file" name="picture" placeholder="Choose Image File" value=""></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list">
-									<li>
-										First Name
-										<span><input type="text" name="first_name" placeholder="First Name" value="<?php echo !empty($userData['first_name'])?$userData['first_name']:''; ?>" required=" "></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list">
-									<li>
-										Last Name
-										<span><input type="text" name="last_name" placeholder="Last Name" value="<?php echo !empty($userData['last_name'])?$userData['last_name']:''; ?>" required=" "></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list">
-									<li>
-										Email
-										<span><input type="email" name="email" placeholder="Email" value="<?php echo !empty($userData['email'])?$userData['email']:''; ?>" required=" "></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list">
-									<li>
-										Phone
-										<span><input type="text" name="phone" class="single-input" placeholder="Phone" value="<?php echo !empty($userData['phone'])?$userData['phone']:''; ?>"></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list">
-									<li>
-										Address
-										<span><input type="text" name="address" placeholder="Address" value="<?php echo !empty($userData['address'])?$userData['address']:''; ?>"></span>
-									</li>
-								</ul>
-								<ul class="codex_tab_grid_list sub">
-									<li><input type="submit" name="updateProfile" value="Update"></li>
-								</ul>
-								</form>
-							</div>
-						</div>
-					</div>
+			<div class="right">
+				<?php echo !empty($statusMsg)?'<p class="statusMsg '.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
+				<form action="userAccount.php" method="post" enctype="multipart/form-data">
+				<input type="file" name="picture" placeholder="Choose Image File" value="">
+				<input type="text" name="first_name" placeholder="Name" value="<?php echo !empty($userData['first_name'])?$userData['first_name']:''; ?>" required=" ">
+				<input type="text" name="last_name" placeholder="Surname" value="<?php echo !empty($userData['last_name'])?$userData['last_name']:''; ?>" required=" ">
+				<input type="email" name="email" placeholder="Email" value="<?php echo !empty($userData['email'])?$userData['email']:''; ?>" required=" ">
+				<input type="text" name="username" placeholder="Username" value="<?php echo !empty($userData['username'])?$userData['username']:''; ?>" required>
+				<input type="text" name="dob" placeholder="Date of Birth (e.g. 19/09/1994)" value="<?php echo !empty($userData['dob'])?$userData['dob']:''; ?>">
+				<input type="text" name="affiliation" placeholder="Affiliation" value="<?php echo !empty($userData['affiliation'])?$userData['affiliation']:''; ?>">
+				<div class="send-button">
+					<input type="submit" name="updateProfile" value="Update">
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	<!-- render footer view -->
-	<div class="cw_copyright">
-		<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
-	</div>
+</div>
+<!-- render footer view -->
+<div class="cw_copyright">
+	<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
 </div>
 </body>
 </html>
