@@ -81,7 +81,7 @@ if(! function_exists('emailVerification')){
 					<td style="color:#616471;font-weight:400;text-align:left;line-height:190%;padding-top:15px;padding-right:40px;padding-bottom:30px;padding-left:40px;font-size:15px">
 					<h1 style="font-weight:500;font-size:22px;letter-spacing:-1px;line-height:115%;margin:18px 0 0;padding:0;text-align:left;color:#3c7bb6">Email Confirmation</h1>
 					<br>
-					Thank you for signing up with CodexWorld! Please confirm your email address by clicking the link below.
+					Thank you for signing up with GroupSwitzerland! Please confirm your email address by clicking the link below.
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
 					<tbody>
 						<tr>
