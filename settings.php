@@ -31,7 +31,7 @@ $userName = $userData['first_name'].' '.$userData['last_name'];
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Password Update | PHP Login System by CodexWorld</title>
+	<title>Password Update | PHP Login System by GroupSwitzerland</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
@@ -80,7 +80,7 @@ $userName = $userData['first_name'].' '.$userData['last_name'];
 </div>	
 <!-- render footer view -->
 <div class="cw_copyright">
-	<p>&copy; <?php echo date("Y"); ?> CodexWorld. All rights reserved</p>
+	<p>&copy; <?php echo date("Y"); ?> GroupSwitzerland. All rights reserved</p>
 </div>
 </body>
 </html>
