@@ -10,7 +10,7 @@ define('SENDER_EMAIL', 'noreply.groupswitzerland@gmail.com');
 
 define('SMTP', TRUE);
 define('SMTP_HOST', 'smtp.sendgrid.net');
-define('SMTP_USERNAME', 'azure_35ee1217c9df4969c0b9e0a5d3f43e79@azure.com');
+define('SMTP_USERNAME', 'azure_0771731fdc839604c916a733e6b31e45@azure.com');
 define('SMTP_PASSWORD', '@Italy2018');
 define('SMTP_PORT', 587);
 define('SMTP_SECURE', 'tls');
