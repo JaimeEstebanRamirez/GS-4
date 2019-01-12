@@ -1,3 +1,37 @@
+<?php
+//start session
+session_start();
+
+//get session data
+$sessData = !empty($_SESSION['sessData'])?$_SESSION['sessData']:'';
+
+//redirect to homepage if user not logged in
+if(!empty($sessData['userLoggedIn']) && !empty($sessData['userID'])){
+	include_once 'user.php';
+	$user = new User();
+	$conditions['where'] = array(
+		'id' => $sessData['userID'],
+	);
+	$conditions['return_type'] = 'single';
+	$userData = $user->getRows($conditions);
+}else{
+	header("Location: index.php");
+}
+
+//get status message from session
+if(!empty($sessData['status']['msg'])){
+    $statusMsg = $sessData['status']['msg'];
+    $statusMsgType = $sessData['status']['type'];
+    unset($_SESSION['sessData']['status']);
+}
+
+$userPicture = !empty($userData['picture'])?'uploads/profile_picture/'.$userData['picture']:'images/no-profile-pic.png';
+$userName = $userData['first_name'].' '.$userData['last_name'];
+?>
+<!DOCTYPE html>
+
+
+
 <html><head>
 	<title>Profile Update | PHP Login System by GroupSwitzerland</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
