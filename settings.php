@@ -57,6 +57,7 @@ $userName = $userData['first_name'].' '.$userData['last_name'];
 			<li><a href="profile.php">Profile</a></li>
 			<li><a href="settings.php">Settings</a></li>
 			<li><a href="userAccount.php?logoutSubmit=1">Logout</a></li>
+            <li><a href="modeler.php">Modeler</a></li>
 		</ul>
 	</div>
 	<div class="regisFrm">
