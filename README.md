@@ -32,3 +32,18 @@ _________                             .__                 ____  ______       /\ 
  \______  (____  /__|_|  /\___  >__|  |__|___|  /\____/   |___\______  / / /     |___| /____/  
         \/     \/      \/     \/              \/                     \/  \/                    
 ```
+
+
+
+| Tools / Softwares / Services | Description |
+| ------------- | ------------------ |
+| Microsoft Azure | The whole application is hosted on Microsoft Azure. This service is provided by Swisscom (Schweiz) AG. Because the student version of Microsoft Azure was not sufficient for our requirements.|
+|Microsoft Azure WebServevices/WebApp | The WebServices /WebApp service from Microsoft Azure is used to make the whole application run functionally.|
+| MySQL database on Microsoft Azure| As database we have taken the MySQL database which is on the Microsoft Azure. This service is financed by Swisscom (Schweiz) AG and costs 27.20 per month.|
+| MySQL Workbench 8.0 CE| The MySQL Workbench is used to manage the database locally. All changes made on the Azure by the application are also visible locally. This allows an easier editing of the database.|
+
+| GitHub| Github is used for collaboration and versioning of the programming code. We made a Public GitHub account for working together in a team. The GitHub account must be Pulbilc to communicate with the Microsoft Azure.|
+
+| GitHub Desktop| For pushing and pulling the code we used GitHub Desktop. We linked the GitHub Desktop with our text editor programs (Brackets and Sublime Text) so that we could see the changes cleanly in one program.|
+
+| Brackets and Sublime Text| For editing the code/script we used Brackets and/or Sublime text. These are both open source text editors with good features (like auto complete) which made scripting easier for us.|
